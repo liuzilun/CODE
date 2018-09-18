@@ -1,0 +1,111 @@
+#include <stdio.h>
+#include <string.h>
+
+#include "XTcp.h"
+
+#ifdef WIN32
+typedef  int socklen_t;
+#endif
+#include <thread>
+#include<epoll.h>
+
+
+using namespace std;
+
+class TcpThread
+{
+public:
+	void TMain();  
+	XTcp client;
+};   
+
+void TcpThread::TMain()
+{
+	char buf[1024] = { 0 };
+	for (;;)
+	{
+		int lent = client.Recv(buf, sizeof(buf) - 1);
+		if (lent <= 0)
+		{
+			break;
+		}
+		buf[lent] = '\0';
+		if (strstr(buf, "quit") != NULL)
+		{
+			char re[] = "quit success!";
+			client.Send(re, strlen(re) + 1);
+			break;
+		}
+		int sendlen = client.Send("OK\n", 3);
+
+		printf("recv %s \n ", buf);
+	}
+	client.Close();
+	delete this;
+}
+int main(int argc, char*argv[])
+{
+
+
+	unsigned short port = 8099;
+	if (argc >1)
+	{
+		port = atoi(argv[1]);
+	}
+
+	XTcp tcpServer;
+
+	tcpServer.CreateSocket();
+	tcpServer.Bind(port);
+
+	//create epoll
+	int epfd = epoll_create(256);
+
+	//epoll_ev
+	epoll_event ev;
+	ev.data.fd = server.sock;
+	ev.event = EPOLLIN | EPOLLET;
+	epoll_ctl(epfd, EPOLL_CTL_ADD,server.sock, &ev);
+	epoll_event enevts[20];
+	char buf[1024] = { 0 };
+	char* msg =" Http/1.1 200 OK \r\n\r\n"
+	for (;;)
+	{
+		int count = epoll_wait(epfd,event,20,500);
+		if (count < = 0)
+		{
+			continue;
+		}
+
+		for (int i = 0; i < count; i++)
+		{
+			if (events[i].data.fd == server.sock)
+			{
+				XTcp client = tcpServer.Accept();
+				epoll_event ev;
+				ev.data.fd = server.sock;
+				ev.event = EPOLLIN | EPOLLET;
+				epoll_ctl(epfd, EPOLL_CTL_ADD, client.sock, &ev);
+
+			}
+			else
+			{
+				XTCP client;
+				client.sock = events[i].data.fd;
+				client.Recv(buf, 1024);
+				client.Send(msg, strlen(msg));
+				epoll_ctl(epfd, EPOLL_CTL_DELETE, client.sock, &ev);
+
+			}
+		}
+
+		//TcpThread* th = new TcpThread();
+		//th->client = client;
+		//std::thread sth(&TcpThread::TMain, th);
+		//sth.detach();
+	}
+	tcpServer.Close();
+
+	getchar();
+	return 0;
+}

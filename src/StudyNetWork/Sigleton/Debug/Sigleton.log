@@ -1,0 +1,12 @@
+﻿生成启动时间为 2018/9/10 17:42:22。
+     1>项目“\\192.168.1.103\code\src\StudyNetWork\Sigleton\Sigleton.vcxproj”在节点 3 上(Build 个目标)。
+     1>ClCompile:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Singleton.cpp
+         Singleton.cpp
+     1>\\192.168.1.103\code\src\studynetwork\sigleton\singleton.cpp(5): error C2146: 语法错误: 缺少“;”(在标识符“g_cs”的前面)
+     1>\\192.168.1.103\code\src\studynetwork\sigleton\singleton.cpp(5): error C4430: 缺少类型说明符 - 假定为 int。注意:  C++ 不支持默认 int
+     1>已完成生成项目“\\192.168.1.103\code\src\StudyNetWork\Sigleton\Sigleton.vcxproj”(Build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:03.79

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<servers version="1">
+<server>
+     <serverName>shengzhengVPN</serverName>
+     <serverIP>192.168.1.11</serverIP>
+</server>
+
+<server>
+     <serverName>beijingvpn</serverName>
+     <serverIP>128.2.2.1</serverIP>
+</server>
+
+<server>
+     <serverName>chongqing</serverName>
+     <serverIP>192.168.2.25</serverIP>
+</server>
+
+</servers>
