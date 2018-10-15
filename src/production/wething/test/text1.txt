@@ -1,0 +1,5 @@
+--------------------------------------------------------------------------
+MsgConsume: begin to consume f.Channel:&{{{0 0} 0} {0 0} {0 0} {{0 0} 0 0 0 0} 0xc000048140 0xc0000160c0 0xc0000b6150 1 0 
+false [] [] [] [] 0xc0000321c0 false 0xc000036300 0x575610 <nil> <nil> []},f.QueueName:wething-queue consumerTag:simple-consumer
+--------------------------------------------------------------------------
+closing: <nil>

@@ -1,0 +1,28 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TcpHole", "TcpHole.vcproj", "{48CC422A-0BB6-4E82-98EF-E7EE13C78AFC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TCPIP", "..\TCPIP\TCPIP.vcproj", "{C008431B-1A9E-4056-BEBD-151EDB1176A1}"
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug
+		ConfigName.1 = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+		{48CC422A-0BB6-4E82-98EF-E7EE13C78AFC}.0 = {C008431B-1A9E-4056-BEBD-151EDB1176A1}
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{48CC422A-0BB6-4E82-98EF-E7EE13C78AFC}.Debug.ActiveCfg = Debug|Win32
+		{48CC422A-0BB6-4E82-98EF-E7EE13C78AFC}.Debug.Build.0 = Debug|Win32
+		{48CC422A-0BB6-4E82-98EF-E7EE13C78AFC}.Release.ActiveCfg = Release|Win32
+		{48CC422A-0BB6-4E82-98EF-E7EE13C78AFC}.Release.Build.0 = Release|Win32
+		{C008431B-1A9E-4056-BEBD-151EDB1176A1}.Debug.ActiveCfg = Debug|Win32
+		{C008431B-1A9E-4056-BEBD-151EDB1176A1}.Debug.Build.0 = Debug|Win32
+		{C008431B-1A9E-4056-BEBD-151EDB1176A1}.Release.ActiveCfg = Release|Win32
+		{C008431B-1A9E-4056-BEBD-151EDB1176A1}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

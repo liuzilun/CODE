@@ -1,0 +1,119 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SMGI", "SMGI\SMGI.vcproj", "{86917C08-F0DC-4ED4-A38D-7E57F44F6196}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SGIP", "SGIP\SGIP.vcproj", "{565E1DA4-D920-4A12-9FCD-0D693B48E404}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TCPIP", "TCPIP\TCPIP.vcproj", "{C008431B-1A9E-4056-BEBD-151EDB1176A1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcproj", "{ADBCD806-DC9B-4E96-AB3D-E02F582B0765}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CMPP", "CMPP\CMPP.vcproj", "{FF5017FE-89B7-4874-8112-504E988BFDBB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SMPP", "SMPP\SMPP.vcproj", "{FA66387E-DB98-4499-9887-43A7906507BF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CNGP", "CNGP\CNGP.vcproj", "{626A889A-0D67-4A29-9260-0E9EB23F3B4B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SMGP", "SMGP\SMGP.vcproj", "{DE3FC5B9-C393-46A1-802B-47D56673C306}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NxpSMGI", "NxpSMGI\NxpSMGI.vcproj", "{A690A184-E3F7-4674-8024-9DCD4351F2D3}"
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 10
+		SccLocalPath0 = .
+		CanCheckoutShared = true
+		SolutionUniqueID = {351D2BA4-D461-46CC-B0F7-2E6125D2A3BA}
+		SccProjectUniqueName1 = CMPP\\CMPP.vcproj
+		SccLocalPath1 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection1 = CMPP\\
+		SccProjectUniqueName2 = CNGP\\CNGP.vcproj
+		SccLocalPath2 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection2 = CNGP\\
+		SccProjectUniqueName3 = NxpSMGI\\NxpSMGI.vcproj
+		SccLocalPath3 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection3 = NxpSMGI\\
+		SccProjectUniqueName4 = SGIP\\SGIP.vcproj
+		SccLocalPath4 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection4 = SGIP\\
+		SccProjectUniqueName5 = SMGI\\SMGI.vcproj
+		SccLocalPath5 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection5 = SMGI\\
+		SccProjectUniqueName6 = SMGP\\SMGP.vcproj
+		SccLocalPath6 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection6 = SMGP\\
+		SccProjectUniqueName7 = SMPP\\SMPP.vcproj
+		SccLocalPath7 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection7 = SMPP\\
+		SccProjectUniqueName8 = TCPIP\\TCPIP.vcproj
+		SccLocalPath8 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection8 = TCPIP\\
+		SccProjectUniqueName9 = test\\test.vcproj
+		SccLocalPath9 = .
+		CanCheckoutShared = true
+		SccProjectFilePathRelativizedFromConnection9 = test\\
+	EndGlobalSection
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug
+		ConfigName.1 = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+		{86917C08-F0DC-4ED4-A38D-7E57F44F6196}.0 = {565E1DA4-D920-4A12-9FCD-0D693B48E404}
+		{565E1DA4-D920-4A12-9FCD-0D693B48E404}.0 = {C008431B-1A9E-4056-BEBD-151EDB1176A1}
+		{ADBCD806-DC9B-4E96-AB3D-E02F582B0765}.0 = {86917C08-F0DC-4ED4-A38D-7E57F44F6196}
+		{FF5017FE-89B7-4874-8112-504E988BFDBB}.0 = {C008431B-1A9E-4056-BEBD-151EDB1176A1}
+		{FA66387E-DB98-4499-9887-43A7906507BF}.0 = {C008431B-1A9E-4056-BEBD-151EDB1176A1}
+		{626A889A-0D67-4A29-9260-0E9EB23F3B4B}.0 = {C008431B-1A9E-4056-BEBD-151EDB1176A1}
+		{DE3FC5B9-C393-46A1-802B-47D56673C306}.0 = {C008431B-1A9E-4056-BEBD-151EDB1176A1}
+		{A690A184-E3F7-4674-8024-9DCD4351F2D3}.0 = {86917C08-F0DC-4ED4-A38D-7E57F44F6196}
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{86917C08-F0DC-4ED4-A38D-7E57F44F6196}.Debug.ActiveCfg = Debug|Win32
+		{86917C08-F0DC-4ED4-A38D-7E57F44F6196}.Debug.Build.0 = Debug|Win32
+		{86917C08-F0DC-4ED4-A38D-7E57F44F6196}.Release.ActiveCfg = Release|Win32
+		{86917C08-F0DC-4ED4-A38D-7E57F44F6196}.Release.Build.0 = Release|Win32
+		{565E1DA4-D920-4A12-9FCD-0D693B48E404}.Debug.ActiveCfg = Debug|Win32
+		{565E1DA4-D920-4A12-9FCD-0D693B48E404}.Debug.Build.0 = Debug|Win32
+		{565E1DA4-D920-4A12-9FCD-0D693B48E404}.Release.ActiveCfg = Release|Win32
+		{565E1DA4-D920-4A12-9FCD-0D693B48E404}.Release.Build.0 = Release|Win32
+		{C008431B-1A9E-4056-BEBD-151EDB1176A1}.Debug.ActiveCfg = Debug|Win32
+		{C008431B-1A9E-4056-BEBD-151EDB1176A1}.Debug.Build.0 = Debug|Win32
+		{C008431B-1A9E-4056-BEBD-151EDB1176A1}.Release.ActiveCfg = Release|Win32
+		{C008431B-1A9E-4056-BEBD-151EDB1176A1}.Release.Build.0 = Release|Win32
+		{ADBCD806-DC9B-4E96-AB3D-E02F582B0765}.Debug.ActiveCfg = Debug|Win32
+		{ADBCD806-DC9B-4E96-AB3D-E02F582B0765}.Debug.Build.0 = Debug|Win32
+		{ADBCD806-DC9B-4E96-AB3D-E02F582B0765}.Release.ActiveCfg = Release|Win32
+		{ADBCD806-DC9B-4E96-AB3D-E02F582B0765}.Release.Build.0 = Release|Win32
+		{FF5017FE-89B7-4874-8112-504E988BFDBB}.Debug.ActiveCfg = Debug|Win32
+		{FF5017FE-89B7-4874-8112-504E988BFDBB}.Debug.Build.0 = Debug|Win32
+		{FF5017FE-89B7-4874-8112-504E988BFDBB}.Release.ActiveCfg = Release|Win32
+		{FF5017FE-89B7-4874-8112-504E988BFDBB}.Release.Build.0 = Release|Win32
+		{FA66387E-DB98-4499-9887-43A7906507BF}.Debug.ActiveCfg = Debug|Win32
+		{FA66387E-DB98-4499-9887-43A7906507BF}.Debug.Build.0 = Debug|Win32
+		{FA66387E-DB98-4499-9887-43A7906507BF}.Release.ActiveCfg = Release|Win32
+		{FA66387E-DB98-4499-9887-43A7906507BF}.Release.Build.0 = Release|Win32
+		{626A889A-0D67-4A29-9260-0E9EB23F3B4B}.Debug.ActiveCfg = Debug|Win32
+		{626A889A-0D67-4A29-9260-0E9EB23F3B4B}.Debug.Build.0 = Debug|Win32
+		{626A889A-0D67-4A29-9260-0E9EB23F3B4B}.Release.ActiveCfg = Release|Win32
+		{626A889A-0D67-4A29-9260-0E9EB23F3B4B}.Release.Build.0 = Release|Win32
+		{DE3FC5B9-C393-46A1-802B-47D56673C306}.Debug.ActiveCfg = Debug|Win32
+		{DE3FC5B9-C393-46A1-802B-47D56673C306}.Debug.Build.0 = Debug|Win32
+		{DE3FC5B9-C393-46A1-802B-47D56673C306}.Release.ActiveCfg = Release|Win32
+		{DE3FC5B9-C393-46A1-802B-47D56673C306}.Release.Build.0 = Release|Win32
+		{A690A184-E3F7-4674-8024-9DCD4351F2D3}.Debug.ActiveCfg = Debug|Win32
+		{A690A184-E3F7-4674-8024-9DCD4351F2D3}.Debug.Build.0 = Debug|Win32
+		{A690A184-E3F7-4674-8024-9DCD4351F2D3}.Release.ActiveCfg = Release|Win32
+		{A690A184-E3F7-4674-8024-9DCD4351F2D3}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

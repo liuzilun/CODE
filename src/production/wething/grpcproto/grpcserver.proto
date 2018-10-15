@@ -1,0 +1,19 @@
+syntax = "proto3"; // 指定proto版本
+
+package protomsg;     // 指定包名
+
+// 定义DbServer服务
+service DbServer {
+    // 定义HandleMsgFromMsgServer方法
+    rpc HandleMsgFromMsgServer(MsgFromMsgServerRequest) returns (MsgFromMsgServerReply) {}
+}
+
+// MsgFromMsgServerRequest 请求结构
+message MsgFromMsgServerRequest {
+    string MsgBody = 1 ;
+}
+
+// MsgFromMsgServerReply 响应结构
+message MsgFromMsgServerReply {
+    string message = 1;
+}

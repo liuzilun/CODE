@@ -1,0 +1,118 @@
+MainForm.cpp程序过程功能解释:
+        
+1.FormShow(TObject *Sender)    
+    //程序负责初始化系统,以及建立工作线程
+2.FormKeyDown(TObject *Sender, WORD &Key,TShiftState Shift)    
+    //按键事件的解释，每按一个键就相应的解释成对应的工作线程的键值
+3.FormPaint(TObject *Sender)   
+    //屏幕重画事件，当发生重画时，则系统向工作线程发送一个 '!' 的键值，则工作线程负责将其解释成系统重画4.FormCloseQuery(TObject *Sender, bool &CanClose)   
+    //系统关闭事件，主要是在关闭时退出神龙卡播放，然后终止工作线程
+5.FormDestroy(TObject *Sender)   //同上
+6.Timer2Timer(TObject *Sender)
+    //定时刷新，主要完成以1.播放歌曲操作    2.完成下首播放和系统时间显示
+7.NMUDP1DataReceived(TComponent *Sender,int NumberBytes, AnsiString FromIP, int Port);
+    //获取系统房态的UDP控件,由收银服务端定时发送房态信息
+8.FormMouseDown(TObject *Sender, TMouseButton Button,TShiftState Shift, int X, int Y);
+    //鼠标操作键按下,则做相应的键转换,然后传给主工作线程,当按下右键时,系统默认为是返回
+9.NMUDP2DataReceived(TComponent *Sender,int NumberBytes, AnsiString FromIP, int Port);
+    //接受远程控制的程序,当远程控制发过请示过来时,则系统相应的完成对应功能
+10.Timer1Timer(TObject *Sender);
+    //负责接受服务器存在消息的判断,如果在十五秒钟内找不到服务器,则系统自动切换到分布式系统来完成工作
+11.CppWebBrowser1NewWindow2(TObject *Sender,LPDISPATCH *ppDisp, TOLEBOOL *Cancel);  
+    //负责当流览网页的时候弹出新窗口,系统不进行处理,屏蔽新窗口的弹出
+12.NMUDP3DataReceived(TComponent *Sender,int NumberBytes, AnsiString FromIP, int Port);
+    //接收服务器存在发过来的消息,如果收到,则将由分布式切换到服务器式,完成此过程
+13.ShowPicture(int x,int y,char *fname);   //在界面上显示一副图片
+14.TranShowPicture(int x,int y,char *fname);  //在界面上指定的位置显示一副图片
+15.DrawText16(int x,int y,int Color,char *FontName,char *Text);   //显示字体
+16.DrawText24(int x,int y,int Color,char *FontName,char *Text);   //显示字体
+17.DrawText32(int x,int y,int Color,char *FontName,char *Text);   //显示字体
+18.ADrawText(int x,int y,int Color,char *FontName,char *Text,int FontSize);   //在指定位置，用指定字体，指定颜色显示字体
+19.BDrawText(int x,int y,int Color,wchar_t *Text,int len);        //显示泛代码字符Unicode
+
+        struct ShowPictureStru SPS;       //显示图片的结构,供工作线程和界面线程之间的切换使用
+        struct EventStru       ES;        //由界面FORM1负责引向工作线程发送按键消息或者是刷新消息的结构
+        struct DrawTextStru    TS;        //显示字符的结构，界面线程和工作线程相互切换使用
+        struct KeyTabStru  KTS[100];      //按键操作的键盘对应表
+        int    KeyTabCount;               //键盘对应的有多少个
+        struct MapDrive Path[100];        //歌曲点歌路径，最多一百条
+        int    PathCount;                 //歌曲路径总数
+        AnsiString Gswjm,XPath; //公视文件名和X盘的路径
+public:		// User declarations
+        __fastcall TForm1(TComponent* Owner);
+        void __fastcall           TDP();        //穿透显示,工作线程先将数据写入SPS这个结构，然后再同步调用这个写
+        void __fastcall         TText();        //由工作线和调用，工作线程先将数据写入TS结构，然后同步调用这个
+        void __fastcall    SaveRecord();        //保存录音
+        void __fastcall   StartRecord();        //开始录音
+        bool    CacheData(TMessage Msg);        //录音数据到达以后接受工作，写入磁盘
+        char                  *waveBuff;        //录音缓冲区
+        FILE                  *RecordFP;        //录音文件
+        bool               RecordMusice;        //录音标志， TRUE表示在录， FALSE表示不在录，初始化为不录
+        WAVEFORMATEX         waveFormat;        //声音录制的参数
+        WAVEHDR                 waveHdr;        //设置缓冲区的参数
+        HWAVEIN                  waveIn;        //录音输入结构体
+        unsigned long         bytecount;        //录音的总字节数
+        struct WaveHead        wavehead;        //wave文件头
+        AnsiString         RecordSongNo;        //供工作线程回放的时候，填入要回放的歌曲编号 
+        void __fastcall  BackPlaySong();        //回放录音
+        bool                   BackPlay;        //回放标志 TRUE表示回放 FALSE表示当前状态不是回放
+        void __fastcall  StopBackPlay();        //停止回放
+        AnsiString       BackPlaySongNo;        //录音的歌曲编号
+//-----------------------------------------------------------------------------
+        void __fastcall ProcessPlaySong();      //处理正在播放的歌曲，由这个函数负责下首的切换以及录音的开始 
+        int              SongPlayStat;          //歌曲播放状态1快进  2快退
+        bool             BackMusice;            //当没有歌曲可以播放的时候，这个记录下了的当前正在播放的是背景音乐
+        unsigned char    PlayStream;            //神龙卡使用，保存的是当前播放的流
+        int              SongVolumeSize;        //音量大小
+        int              Mute;                  //是否是静音 0表示没有静音  1表示己静音
+        AnsiString __fastcall FindSong(AnsiString No);   //歌曲搜索，是通过Path[100]这里面的路径去找歌曲，返回己经找到的，没有找到返回空串
+        bool __fastcall ProcessDJ(char Key);    //DJ控制按钮的操作，如果所按键是DJ控制按钮，则返回TRUE，否则返回FALSE
+        void __fastcall ReadPath(AnsiString mapfile);   //读取指定的MAP文件中的路径
+        bool PL_ExitWindow(UINT uFlag);         //WINDOWS 2000的关机或者是重启函数
+        void __fastcall DelRecordFile();        //删除录音文件，在开机的时候自动删除
+        AnsiString GetTextWidthText;            
+        int        GetTextWidthV;
+        void __fastcall GetTextWidth();         //工作线程通过设置GetTextWidthText在GetTextWidthV中返回指定的字符宽度
+        void __fastcall ZhGuangGao();           //将加密的信息标题转成Image1中的图片，然后在程序中负责显示
+        void __fastcall DrawGuangGao();         //将Image1和Image2中的图片显示出来
+        int             RoomStat;               //当前房间的房态   1.己进场可以操作，  0未进场，
+        bool __fastcall CheckComputer();        //软件合法检查,如果合法，则返回TRUE
+        void __fastcall MyCopyFile();           //自动拷贝，当系统重新启动的时候，则将自动通过这个函数拷贝远程数据
+        void __fastcall DrawDH1(Graphics::TBitmap *tp,int CurX,int Cury );
+        void __fastcall DrawDH2(Graphics::TBitmap *tp,int CurX,int Cury );
+        void __fastcall DrawDH3(Graphics::TBitmap *tp,int CurX,int Cury );
+        void __fastcall DrawDH4(Graphics::TBitmap *tp,int CurX,int Cury );   //以上是几个动画的产生，但程序没有使用
+        bool  DrawDhFlag;   //画动画标记
+        AnsiString __fastcall ReadPara(AnsiString PName);    //读取PARATAB.DBF中的数据,将系统的一些参数读进来
+        int    Gsyldx;      //公视音量大小,在PARATAB.DBF中有定义
+        AnsiString CloseComputerPassword;      //计算机关机口令,在PARATAB.DBF中有定义
+        struct SelSongTab PlaySongTab[1000],SelSong[5000]; //播放和待选队列
+        int    SongCount,PlaySongCount,PlaySongNo;   //待选歌曲总数,播放歌曲总数,当前播放歌曲编号
+        bool ShowTime,ShowNextSong;       //是否显示系统时间和下首播放
+        int  MouseOperCode;               //鼠标操作的代码编号
+        int __fastcall GetMouseOperCode(AnsiString PictName);  //根据显示的图片明,找到鼠标对应的代码编号
+        struct MouseTab MTab[2000];       //界面元素坐标表,供鼠标点击的时候确定要发生的动作
+        int    MTabCount;                 // 界面元素的个数
+        struct POPERTab PTab[300];        //主界面
+        int    PTabCount;                 //主界面的个数
+        void __fastcall ReadMouseTab();   //读取鼠标操作表
+        int  MainThreadStat;
+        int  TVAV_STAT; //TVAV状态
+        int  SyDh;     //使用动画
+        int  JiuCheck; //酒水密码检查
+        void __fastcall WriteFwhj();
+        AnsiString NetPageHome;
+        void __fastcall ShowNetPage();  //显示网页操作界面
+        void __fastcall CloseNetPage();  //关闭打开的网页
+        void CloseInternet(TMessage msg);  //当按返回键时,定义的热键,则将关闭显示的网页
+        int  InternetOper;              //是否可以上网,0表示不可以,1表示可以
+        AnsiString SongNameFont;
+        int        SongNameFontSize;
+        AnsiString SingerFont;   //歌星姓名字体
+        int        SingerFontSize; //歌星姓名字体大小
+        void __fastcall initSystem();  //初始化系统
+        AnsiString hwzt;               //函文字体
+        int        hwztdx;             //函文字体大小
+
+        int        Bhdgjm;             //编号点歌界面
+        int  zyzt;                     //资源使用状态

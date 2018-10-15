@@ -1,0 +1,1 @@
+f.Channel:&{{{0 0} 0} {0 0} {0 0} {{0 0} 0 0 0 0} 0xc000048140 0xc000039740 0xc00005c6f0 1 0 false [] [] [] [] 0xc000042240 false 0xc0000a8360 0x575610 <nil> <nil> []},f.QueueName:wething-queue consumerTag:simple-consumerclosing: <nil>
