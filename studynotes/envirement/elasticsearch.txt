@@ -1,0 +1,53 @@
+https://blog.csdn.net/jackyzhousales/article/details/78208910   rpm安装
+
+修改配置文件  服务器IP和PORT
+config elasticsearch.yml
+
+安装head插件
+  需要 git nodejs 
+https://blog.csdn.net/llwwlql/article/details/77162277   head 安装
+
+
+修改head 配置
+修改Gruntfile.js  hostname   '*'
+connect-->server->options 下面添加 hostname '*'
+
+修改 _site  app.js
+
+localhost 改成IP
+
+8.配置可以跨域访问
+config elasticsearch.yml
+
+ http.cors.enabled:true
+ http.cors.allow-origin:'*'
+
+关闭防火墙
+
+9.启动elasticsearch
+10  启动head
+
+ /usr/local/head/elasticsearch-head/node_modules/grunt/bin
+
+
+
+kibana 安装
+
+https://www.elastic.co/cn/downloads/kibana 下载
+
+配置 config里面，service.host   和elasticsearch.url
+
+
+
+
+
+学习
+https://www.yiibai.com/elasticsearch/elasticsearch-getting-start.html
+
+
+
+
+
+
+
+

@@ -1,0 +1,179 @@
+安装依赖包
+yum install -y yum-utils device-mapper-persistent-data lvm2
+
+下截docker
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+yum install docker-ce
+
+启动
+systemctl start docker
+systemctl enable docker
+
+查询信息
+docker info
+docker images  查看有哪些镜像
+hub.docker.com/explore 镜像 或  docker search mysql  
+创建docker
+docker run -itd --name test01 ubuntu
+docker ps 查看哪些镜像在运行
+
+ls containers/xxxx
+docker start test01  创建容器
+docker attach test01     创建文件，进入容器
+
+ctrl +p+q出来容器
+docker exec test01 ls /home  执行容器里面的命令，查看容器里面的文件，
+docker exec test01 touch /home/a.txt
+docker commit test01 ubuntu:self 
+docker run -itd --name test02 ubuntu:self
+
+docker export test01 > est01.tar 容器里面的文件系统导入到tar包 
+du -sh est01.tar 查看文件大小
+docker import est01.tar nubuntu:self  只是文件系统导入成镜像
+docker run -itd --name ubuntu_self nubuntu:self /bin/bash 
+
+docker save mysql > mysql.tar  包括系统所有文件导成tar 包
+docker load -i mysql.tar 导入
+
+cat /etc/issue  查看系统版本
+docker run -itd --add-host abd:192.168.1.188 ubuntu 添加镜像，加主机名，IP
+
+docker rm -f $(docker ps -q -a)删除所有docker 容器
+
+docker run -itd --name ewb01 -v /container_data/web:/data 宿主机的web目录挂到容器中的data目录
+
+docker run -itd -v /data --name dvdata ubuntu  创建数据容器
+docker run -itd --name web01 --volumes-from dvdata ubuntu 以数据容器做为挂载
+
+建立mysql 镜像
+docker run --name=mysql -it -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123 -d mysql
+
+docker exec -it mysql bash 进入容器
+
+
+iptables -F
+iptables -t nat -F
+
+
+
+
+
+
+
+
+
+
+kubernetes 安装
+下载证书工具
+wget https://pkg.cfssl.org/R1.2/cfssl_linux-amd64
+wget https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64
+wget https://pkg.cfssl.org/R1.2/cfssl-certinfo_linux-amd64
+
+chmod +x cfssl_linux-amd64 cfssljson_linux-amd64 cfssl-certinfo_linux-amd64
+
+mv cfssl_linux-amd64  /usr/local/bin/cfssl
+mv cfssljson_linux-amd64  /usr/local/bin/cfssljson
+mv cfssl-certinfo_linux-amd64  /usr/local/bin/cfssl-certinfo
+
+
+
+
+
+TSL 证书
+certificate.sh  
+生成  
+
+删除不要的
+ls | grep -v pem | xargs -i rm{}
+
+
+安装etcd
+1. 下载
+
+创建k8s相关目录
+
+mkdir /opt/kubernetes/{bin,cfg,ssl}
+
+ 创建etc配置文件
+vi /opt/kubernetes/cfg/etcd 
+#[Member]
+ETCD_NAME="etcd01"
+ETCD_DATA_DIR="/var/lib/etcd/default.etcd"   //注意这里是建的文件夹
+ETCD_LISTEN_PEER_URLS="
+
+
+ETCD_LISTEN_CLIENT_URLS="https://192.168.1.110:2379"
+
+#[Clustering]
+
+ETCD_INITIAL_ADVERTISE_PEER_URLS="https://192.168.1.110:2380"
+ETCD_ADVERTISE_CLIENT_URLS="https://192.168.1.110:2379"
+ETCD_INITIAL_CLUSTER="etcd01=https://192.168.1.110:2380,etcd02=https://192.168.1.111:2380,etcd03=https://192.168.1.112:2380"
+ETCD_INITIAL_CLUSTER_TOKEN="etcd-cluster"
+
+ETCD_INITIAL_CLUSTER_STATE="new"
+
+
+vi /usr/lib/systemd/etcd.service
+
+[Unit]
+Description=Etcd Server
+After=network.target
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=notify
+EnviromentFile=/opt/kubernetes/cfg/etcd
+ExecStart=/opt/kubernetes/bin/etcd \
+--name=${ETCD_NAME} \
+--data-dir=${ETCD_DATA_DIR} \
+--listen-peer-urls=${ETCD_LISTEN_PEER_URLS} \
+--listen-client-urls=${ETCD_LISTEN_CLIENT_URLS} \
+--advertise-client-urls=${ETCD_ADVERTISE_CLIENT_URLS} \
+--initial-advertise-peer-url=${ETCD_INITIAL_ADVERTISE_PEER_URLS} \
+--initial-cluster=${ETCD_INITIAL_CLUSTER} \
+--initial-cluster-token=${ETCD_INITIAL_CLUSTER_TOKEN} \
+--initial-cluster-state=new \
+--cert-file=/opt/kubernetes/ssl/server.pem \
+--key-file=/opt/kubernetes/ssl/server-key.pem \
+--peer-cert-file=/opt/kubernetes/ssl/server.pem \
+--peer-key-file=/opt/kubernetes/ssl/server-key.pem \
+--trusted-ca-file=/opt/kubernetes/ssl/ca.pem \
+--peer-trusted-ca-file=/opt/kubernetes/ssl/ca.pem
+Restart=on-failure
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
+
+
+启动etcd  systemctl start etcd 
+查看日志  journalctl -u
+          tail /var/log/messages
+
+
+将主节点上的/opt/kubernetes/下面的相关文件全部拷贝到从节点
+scp -r /opt/kubernetes/ssl/ root@slaver1:/opt/kubernetes/
+scp -r /opt/kubernetes/bin/ root@slaver1:/opt/kubernetes/
+scp -r /opt/kubernetes/cfg/ root@slaver1:/opt/kubernetes/
+服务配置文件也要拷贝过去
+
+scp /usr/lib/systemd/system/etcd.service  root@slaver1:/usr/lib/systemd/system/
+修改其他节点的cfg下面的配置文件  etcd  
+改成相应的etcd2  etcd3,还有IP
+启动 etcd systemctl start etcd
+
+检查状态  ssl 目录下
+etcdctl --ca-file=ca.pem --cert-file=server.pem --key-file=server-key.pem --endpoints="httpS://192.168.1.110:2379,https://192.168.1.111:2379,https://192.168.1.112:2379" cluster-health
+
+如有问题，no route to host....检查防火墙
+
+
+
+
+
+
+
+

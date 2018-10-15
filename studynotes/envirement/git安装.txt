@@ -1,0 +1,42 @@
+CentOS6.5自带的git版本是1.7.1
+
+卸载自带的git
+
+1
+# yum remove git
+下载最新版git
+
+1
+# wget https://github.com/git/git/archive/v2.9.2.tar.gz
+解压
+
+1
+2
+# tar zxvf v2.9.2.tar.gz
+# cd git-2.9.2
+编译安装
+
+1
+2
+3
+4
+# make configure
+# ./configure --prefix=/usr/local/git --with-iconv=/usr/local/libiconv
+# make all doc
+# sudo make install install-doc install-html
+修改环境变量
+
+1
+# sudo vim /etc/profile
+在最后一行添加
+
+1
+export PATH=/usr/local/git/bin:$PATH
+保存后使其立即生效
+
+1
+# source /etc/profile
+查看是否安装成功
+
+1
+#git --version

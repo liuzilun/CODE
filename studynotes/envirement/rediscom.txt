@@ -1,0 +1,39 @@
+https://www.cnblogs.com/sixbeauty/p/3954199.html   redis  windows
+http://www.cnblogs.com/sixbeauty/p/3954223.html    git配置
+http://www.redis.net.cn/order/3535.html 命令
+
+
+linux redis 配置
+https://blog.csdn.net/u010570551/article/details/70477952 简单配置
+https://www.cnblogs.com/mafly/p/redis_cluster.html 集群配置
+https://www.cnblogs.com/mafly/p/redis_cluster.html
+
+
+https://www.cnblogs.com/kyrintang/p/4511831.html  gcc升级安装
+
+
+example code
+https://github.com/astaxie/goredis
+
+
+
+redis-cli  客户端访问redis
+redis-cli -h IP  -p  port  -a mima
+
+select
+type
+set
+get
+keys
+
+move
+flushdb
+rename
+
+flushall
+
+expire/persist/ttl
+
+migrate 迁移
+
+exists 判断key是否存在

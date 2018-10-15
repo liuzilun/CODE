@@ -1,0 +1,20 @@
+#格式 protoc --go_out=plugins=grpc:{go代码输出路径} {proto文件}
+protoc --go_out=plugins=grpc:./ ./exporttask.proto
+
+https://github.com/golang/protobuf
+
+helloword  
+
+https://github.com/grpc/grpc-go/blob/master/examples/helloworld/greeter_server/main.go
+
+
+m := make(map[string]interface{})
+
+
+
+
+包的情况：
+
+1.相同目录下的包必须要一直，可以分不同目录
+2.GOpath要检查好
+3.

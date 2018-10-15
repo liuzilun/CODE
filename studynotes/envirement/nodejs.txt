@@ -1,0 +1,29 @@
+获取nodejs 资源
+
+# 4.x
+
+curl --silent --location https://rpm.nodesource.com/setup_4.x | bash -
+
+# 5.x
+
+curl --silent --location https://rpm.nodesource.com/setup_5.x | bash -
+
+# 0.10
+
+curl --silent --location https://rpm.nodesource.com/setup | bash -
+
+
+安装
+
+yum install -y nodejs
+
+
+测试是否安装成功
+
+node -v 
+
+ # v4.4.0
+
+npm -v
+
+# 2.14.20
